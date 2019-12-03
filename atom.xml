@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://ceemomx.github.io</id>
     <title>z2z</title>
-    <updated>2019-12-03T02:32:22.154Z</updated>
+    <updated>2019-12-03T03:02:33.420Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://ceemomx.github.io"/>
     <link rel="self" href="http://ceemomx.github.io/atom.xml"/>
@@ -10,6 +10,113 @@
     <logo>http://ceemomx.github.io/images/avatar.png</logo>
     <icon>http://ceemomx.github.io/favicon.ico</icon>
     <rights>All rights reserved 2019, z2z</rights>
+    <entry>
+        <title type="html"><![CDATA[视频播放和地图位置结合]]></title>
+        <id>http://ceemomx.github.io/post/shi-pin-bo-fang-he-di-tu-wei-zhi-jie-he</id>
+        <link href="http://ceemomx.github.io/post/shi-pin-bo-fang-he-di-tu-wei-zhi-jie-he">
+        </link>
+        <updated>2019-10-15T02:38:02.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>当视频播放的时候，需要在地图上显示对应的位置。视频暂停，地图上的图标也应该停在对应的位置。</p>
+</blockquote>
+<p>其实实现起来非常简单，有播放进度，与对应的坐标相结合起来。</p>
+<p>已知条件：<br>
+坐标路径a</p>
+<p>播放时长b</p>
+<p>当前时间c</p>
+<p>结果：<br>
+当前位置 = a[Math.floor((a.length * c) / b)]<br>
+无论是暂停，快进，回退。都可以求出当前在地图位置的坐标。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Vue自定义插件组件]]></title>
+        <id>http://ceemomx.github.io/post/vue-zi-ding-yi-cha-jian-zu-jian</id>
+        <link href="http://ceemomx.github.io/post/vue-zi-ding-yi-cha-jian-zu-jian">
+        </link>
+        <updated>2019-10-10T02:46:05.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>有些时候，像警告框一类的的组件并不需要在每个html中写一遍，只需要在js里直接调用就可以了。</p>
+</blockquote>
+<p>原理就是在js在调用的时候动态的加载一个vue component</p>
+<h2 id="目录">目录</h2>
+<pre><code>component/
+    ├ vue-alert
+        ├ alert.vue
+        ├ index.js
+</code></pre>
+<h2 id="创建组件">创建组件</h2>
+<p>其实是一个普通的vue component 具体的样式逻辑可以自己定义</p>
+<p><code>alert.vue</code></p>
+<pre><code class="language-html">&lt;template&gt;
+    &lt;div v-show=&quot;visible&quot;&gt;
+        &lt;h2&gt;{{message}}&lt;/h2&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<pre><code class="language-javascript">export default {
+    props: {
+        message: String
+    },
+    data() {
+        return {
+            visible: false
+        }
+    },
+    methods: {
+        show() {
+            this.visible = true
+        },
+        close() {
+            this.visible = false
+            this.$parent.remove() // 这个地方很重要
+        }
+    }
+}
+</code></pre>
+<h2 id="创建一个插件入口文件">创建一个插件入口文件</h2>
+<p><code>index.js</code></p>
+<pre><code class="language-javascript">import alertComponent from 'alert.vue'
+export default {
+    install(Vue) {
+        Vue.prototype.$alert = (opts = {message: '警告'}) =&gt; {
+            let alertBox = new Vue({
+                render(h) {
+                    return h(alertComponent, {props: opts})
+                },
+                methods: {
+                    remove() {
+                        setTimeout(() =&gt; { // 使用timeout可以给组件内的动画预留一些时间
+                            this.destroy()
+                        }, 300)
+                    },
+                    destory() {
+                        this.$destroy() //销毁实例
+                        document.body.removeChild(this.$el) // 移除html
+                    }
+                }
+            })
+            let component = alertBox.$mount() //手动执行声明周期
+            document.body.appendChild(component.$el) // 挂载html
+            let alertInstance = alertBox.$children[0]
+            alertInstance.show() // 这个方法是在alert.vue组件内定义的
+        }
+    }
+}
+</code></pre>
+<h2 id="使用">使用</h2>
+<p>首先在main.js里import插件 并且加载</p>
+<pre><code class="language-javascript">import vueAlert from '@/components/vue-alert'
+
+Vue.use(vueAlert)
+</code></pre>
+<p>使用的时候</p>
+<pre><code class="language-javascript">    this.$alert({
+        message: '我是消息提示'
+        })
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[electron开发桌面软件自定义库]]></title>
         <id>http://ceemomx.github.io/post/electron-kai-fa-zhuo-mian-ruan-jian-zi-ding-yi-ku</id>
@@ -50,6 +157,306 @@ process.env.FFMPEG_PATH = path.join(ffmpegPath, '/ffmpeg.exe')
 process.env.FFPROBE_PATH = path.join(ffmpegPath, '/ffprobe.exe')
 </code></pre>
 <p>这样在生产环境中也能将ffmepg加载到环境变量中了</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[之前的博客消失了]]></title>
+        <id>http://ceemomx.github.io/post/zhi-qian-de-bo-ke-xiao-shi-liao</id>
+        <link href="http://ceemomx.github.io/post/zhi-qian-de-bo-ke-xiao-shi-liao">
+        </link>
+        <updated>2019-07-15T02:59:49.000Z</updated>
+        <content type="html"><![CDATA[<p>换了一个博客客户端</p>
+<p>之前的博客就这么消失了</p>
+<hr>
+<p>后续：</p>
+<p>在另一个电脑里存着，还是找回来了</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[浏览器kv数据库]]></title>
+        <id>http://ceemomx.github.io/post/liu-lan-qi-kv-shu-ju-ku</id>
+        <link href="http://ceemomx.github.io/post/liu-lan-qi-kv-shu-ju-ku">
+        </link>
+        <updated>2019-01-26T02:33:35.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="storagedb">storageDb</h2>
+<p>超 mini 浏览器 KV 数据库</p>
+<p>查询只能用固定条件，还不能进行复杂条件搜索</p>
+<pre><code class="language-javascript">import Database from 'storageDb'
+
+const fooDb = new Database('foo')
+let dataId = ''
+
+fooDb.insert({ title: 'db', i: 0, b: false }).then(id =&gt; {
+  dataId = id
+})
+
+fooDb.update(dataId, { i: 10 }).then(data =&gt; {
+  console.log(data) // {title: 'db', i: 10, b: false}
+})
+
+fooDb.search({ i: 10 }).then(datas =&gt; {
+  console.log(datas) // [{title: 'db', i: 10, b: false}]
+})
+
+fooDb.remove(dataId)
+</code></pre>
+<p>详情看<a href="https://github.com/ceemomx/storageDb">git地址</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[openlayer2静态wmts服务]]></title>
+        <id>http://ceemomx.github.io/post/openlayer2-jing-tai-wmts-fu-wu</id>
+        <link href="http://ceemomx.github.io/post/openlayer2-jing-tai-wmts-fu-wu">
+        </link>
+        <updated>2018-09-04T02:36:28.000Z</updated>
+        <content type="html"><![CDATA[<p>因为项目中需要用到 openlayer2</p>
+<p>但是因为项目所在的环境为内部局域网，无法访问外部网络</p>
+<p>所以地图图块需要自己拼接</p>
+<p>最开始想在内网环境搭建一个wmts服务</p>
+<p>后来研究了一下</p>
+<p>发现requestEncoding可以设置为 rest</p>
+<p>这样我们只需要把地图图块按照请求的路径</p>
+<p>放到项目静态文件目录对应的文件夹里就可以了</p>
+<pre><code class="language-javascript">var wmts = new OpenLayers.Layer.WMTS({
+				name: 'My WMTS Layer',
+				requestEncoding: 'rest',
+				url: '/assets',
+				format: 'image/jpg',
+				layer: 'map',
+				style: 'default',
+				matrixSet: 'img',
+				version: '1',
+				isBaseLayer:true
+			});
+map.addLayer(wmts);         
+
+// &quot;/${url}/${version}/${layer}/${style}/${matrixSet}/${matrix}/${row}/${col}.jpg&quot;
+
+</code></pre>
+<p>路径如下</p>
+<pre><code class="language-javascript">&quot;/${url}/${version}/${layer}/${style}/${matrixSet}/${matrix}/${row}/${col}.jpg&quot;
+</code></pre>
+<p>其中 matrix row col 这三部分是openlayer根据当前地图的缩放和位置自动去请求的</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[抓取图片]]></title>
+        <id>http://ceemomx.github.io/post/zhua-qu-tu-pian</id>
+        <link href="http://ceemomx.github.io/post/zhua-qu-tu-pian">
+        </link>
+        <updated>2018-05-16T03:01:14.000Z</updated>
+        <content type="html"><![CDATA[<p>本来是想写个爬虫爬一下天地图的地图图块</p>
+<p>结果碰到了一些问题，自己总结一下</p>
+<h2 id="1并发问题">1.并发问题</h2>
+<p>其实这个不是新问题，网上也有很多解决方案，只是一开始写了个循环嵌套循环，1秒钟不到发出了90多个请求</p>
+<p>90多个请求有时候会成功 有时候会失败</p>
+<p>所以用了async的</p>
+<p><code>async.mapLimit</code></p>
+<p>解决并发问题</p>
+<h2 id="2下载图块失败">2.下载图块失败</h2>
+<p>本来想把失败的存在数组里全部执行完后，再从失败的数组里再次下载</p>
+<p>之后放弃了这个想法，因为失败的还是有可能失败的</p>
+<p>而且造成失败的原因有很多，不是单纯的让程序反复重试就可以解决问题</p>
+<p>最后还是在生成urls数组的时候访问了一下文件夹里图块有没有成功，如果成功就跳过</p>
+<h2 id="3fs模块的坑">3.fs模块的坑</h2>
+<p>fs.readFile是异步的</p>
+<p>fs.readFileSync是同步的</p>
+<p>在for循环中用同步的才可以 否则循环结束了 因为异步回调的原因 值取不到</p>
+<p>代码如下</p>
+<pre><code class="language-javascript">var request = require('request');
+var fs = require('fs');
+var path = require('path');
+var async = require(&quot;async&quot;);
+
+
+
+var tileMatrix = 10;
+var urls = [];
+var errorUrl = [];
+
+
+for (var tileRow = 140; tileRow &lt; 165; tileRow++) {
+    for (var tileCol = 825; tileCol &lt; 870; tileCol++) {
+        var url = {
+                url:  {
+                    url:'http://t0.tianditu.com/img_c/wmts?SERVICE=WMTS&amp;REQUEST=GetTile&amp;VERSION=1.0.0&amp;LAYER=img&amp;STYLE=default&amp;TILEMATRIXSET=c&amp;TILEMATRIX=' + tileMatrix + '&amp;TILEROW=' + tileRow + '&amp;TILECOL=' + tileCol +'&amp;FORMAT=tiles',
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36'
+                    }
+                }, 
+                m: '' + tileMatrix, 
+                r: '' + tileRow, 
+                c: '' + tileCol
+            }
+        if(!fs.existsSync(path.join(__dirname + '/1/map/default/img', '' + url.m,  url.r , url.c + '.jpg'))){
+            urls.push(url);
+        } else {
+            var file = fs.readFileSync(path.join(__dirname + '/1/map/default/img', '' + url.m,  url.r , url.c + '.jpg'));
+            if (!file.length) {
+                urls.push(url);
+            }
+        }
+        
+    }
+}
+
+
+
+
+async.mapLimit(urls, 20, async function(url) {
+    var res = await new Promise((resolve) =&gt; {
+        console.log('开始下载' + 'm'+ url.m +'r' + url.r + 'c' + url.c + '.jpg')
+        if (!fs.existsSync(path.join(__dirname + '/1/map/default/img', url.m,  url.r)))  fs.mkdirSync(path.join(__dirname + '/1/map/default/img', url.m,  url.r));
+        request(url.url).on('error', function(err) {
+            errorUrl.push(url);
+          }).pipe(fs.createWriteStream(path.join(__dirname + '/1/map/default/img', url.m,  url.r , url.c + '.jpg')).on('close', function(){
+            console.log('下载完成' + 'm'+ url.m +'r' + url.r + 'c' + url.c + '.jpg')
+            resolve(url);
+          }));
+    })
+    return res;
+}, (err, results) =&gt; {
+    console.log('全部完成')
+})
+</code></pre>
+<h2 id="写在最后">写在最后</h2>
+<p>爬虫网上有很多别人写好现成的，自己再造一遍轮子就是想踏踏坑</p>
+<p>有时间再在github上创建个repo 把这个爬虫完善一下</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[用hexo搭建博客]]></title>
+        <id>http://ceemomx.github.io/post/yong-hexo-da-jian-bo-ke</id>
+        <link href="http://ceemomx.github.io/post/yong-hexo-da-jian-bo-ke">
+        </link>
+        <updated>2017-11-29T02:48:53.000Z</updated>
+        <content type="html"><![CDATA[<p>看这篇文章需要具备的知识:</p>
+<ul>
+<li>nodejs</li>
+<li>npm</li>
+<li>git</li>
+<li></li>
+</ul>
+<p>如果以上都了解就可以在github上免费搭建一个自己的博客了</p>
+<p>准备工作:</p>
+<ul>
+<li>电脑安装好nodejs</li>
+<li>电脑安装好git</li>
+<li>github帐号</li>
+</ul>
+<hr>
+<h2 id="1-安装hexo">1. 安装hexo</h2>
+<p>在终端中输入</p>
+<pre><code class="language-terminal">npm install -g hexo-cli
+</code></pre>
+<p>等待安装完成后就可以使用hexo了</p>
+<p>在终端中找到自己喜爱的文件夹位置输入</p>
+<pre><code class="language-terminal"> hexo init myBlog
+</code></pre>
+<p>myBlog也可以替换成自己喜欢的名字</p>
+<p>过一会博客文件创建好了，继续输入</p>
+<pre><code class="language-terminal">cd myBlog
+npm install
+npm install hexo-deployer-git --save
+</code></pre>
+<p>等待安装完成就可以进行下一步了</p>
+<hr>
+<h2 id="2配置hexo">2.配置hexo</h2>
+<p>在配置hexo前需要在github创建一个repo</p>
+<p>Repository name输入</p>
+<p><code>你喜欢的名字.github.io</code></p>
+<p>例如</p>
+<p><code>myshiningblog.github.io</code></p>
+<p>创建好后复制下来git地址 例如</p>
+<p><code>git@github.com:yourname/myshiningblog.github.io.git</code></p>
+<p>进入settings找到 Deploy keys</p>
+<p>点击</p>
+<div style="display:inline-block;    border-radius: 0.25em;border: 1px solid rgba(27,31,35,0.2);font-weight: 600;padding: 3px 10px;font-size:12px;line-height: 20px;color: #24292e;
+    background-color: #eff3f6;
+    background-image: linear-gradient(-180deg, #fafbfc 0%, #eff3f6 90%);">Add deploy key</div>
+<p>把你电脑里的ssh-key复制进去</p>
+<p>记得允许写入权限</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-4158764"><label class="task-list-item-label" for="task-item-4158764"> Allow write access</label></li>
+</ul>
+<p>回到你创建好的的博客目录<br>
+在博客目录下找到_config.yml并打开</p>
+<p>修改网站的基本信息</p>
+<pre><code class="language-yml">title: 网站的标题
+subtitle: 副标题
+description: 描述
+keywords: 关键词
+author: 作者
+language: zh-CN
+</code></pre>
+<p>在最下方找到</p>
+<pre><code class="language-yml">deploy:
+  type: git
+  repo: &lt;repository url&gt;
+  branch: [branch]
+</code></pre>
+<p>修改成</p>
+<pre><code class="language-yml">deploy:
+  type: git
+  repo: 复制下来的git地址
+  branch: master
+</code></pre>
+<p>保存！</p>
+<hr>
+<h2 id="3生成和发布">3.生成和发布</h2>
+<p>在终端输入</p>
+<pre><code class="language-terminal">hexo g -d
+</code></pre>
+<p>等一会就发布成功了</p>
+<p>打开github.io的页面</p>
+<p><code>你喜欢的名字.github.io</code></p>
+<p>就能看到你的博客啦</p>
+<hr>
+<h2 id="4创作编辑文章">4.创作编辑文章</h2>
+<p>有两种方法可以创建编辑文章</p>
+<h4 id="1使用代码编辑器-例如-sublime-vscode-atom">1.使用代码编辑器 例如 sublime vscode atom</h4>
+<p>用终端进入博客目录下 输入</p>
+<pre><code class="language-terminal">hexo new 文章的标题
+</code></pre>
+<p>这时候在博客的目录</p>
+<p><code>/source/_posts/</code></p>
+<p>下就能看到你新创建的文章的标题.md了</p>
+<p>直接就可以在这里写你的文章了</p>
+<h4 id="2使用本地服务后台">2.使用本地服务后台</h4>
+<p>用终端进入博客目录下 输入</p>
+<pre><code class="language-terminal">npm install --save hexo-admin
+</code></pre>
+<p>安装完成后 输入</p>
+<pre><code class="language-terminal">hexo server
+</code></pre>
+<p>出现</p>
+<pre><code class="language-terminal">Hexo is running at http://localhost:4000/
+</code></pre>
+<p>就说明服务启好了<br>
+访问这个地址就能在本地查看博客</p>
+<p>访问<br>
+<code>http://localhost:4000/admin</code></p>
+<p>进入后台就可以对文章进行创建编辑了</p>
+<p>文章写完后记得在终端博客目录下 输入</p>
+<pre><code class="language-terminal">hexo g -d
+</code></pre>
+<p>这样文章就会生成并发布到github上了</p>
+<hr>
+<h2 id="5博客页面修改">5.博客页面修改</h2>
+<p>在博客目录下/themes/里就是主题文件了</p>
+<p>有一个 <strong>landscape</strong> 的默认主题</p>
+<p>如果对自己html css有信心，并且熟悉ejs模板还有stylus</p>
+<p>就可以从默认模板下手修改成自己喜欢的博客样式</p>
+<p>如果自己没有太强的前端知识<br>
+可以访问<br>
+<a href="https://hexo.io/themes/">https://hexo.io/themes/</a></p>
+<p>挑选自己喜欢的模板并按照 主题中的readme操作就可以更换模板了</p>
+<hr>
+<h2 id="6其他">6.其他</h2>
+<p>hexo官网:<br>
+<a href="https://hexo.io/">https://hexo.io/</a></p>
+<p>hexo简中官网:<br>
+<a href="https://hexo.io/zh-cn/">https://hexo.io/zh-cn/</a></p>
 ]]></content>
     </entry>
     <entry>
@@ -105,41 +512,6 @@ tools.decodeHex = function(hex){
     hex = parseInt(hex,32);
     hex = hex.toString(16);
    return hex.slice(0,hex.length - salt.length);
-};
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[获取URL中的参数]]></title>
-        <id>http://ceemomx.github.io/post/huo-qu-url-zhong-de-can-shu</id>
-        <link href="http://ceemomx.github.io/post/huo-qu-url-zhong-de-can-shu">
-        </link>
-        <updated>2014-05-10T02:29:30.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-javascript">var GET = function () {
-    var e = location.href.split(&quot;?&quot;)[1] || &quot;&quot;, e = e.split(&quot;&amp;&quot;), t = 0, n = e.length, r = {};
-    for (; t &lt; n; t++)e[t] = e[t].split(&quot;=&quot;), r[e[t][0]] = decodeURIComponent(e[t][1]);
-    return r
-}();
-</code></pre>
-<p>使用的时候</p>
-<pre><code class="language-javascript">// http://www.a.com/?name=mengxi&amp;age=18
-
-GET.name
-// 'mengxi'
-
-GET.age
-// '18'
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[打分]]></title>
-        <id>http://ceemomx.github.io/post/da-fen</id>
-        <link href="http://ceemomx.github.io/post/da-fen">
-        </link>
-        <updated>2013-07-15T02:25:27.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-javascript">var get_rating_string = function(rating) { 
-return &quot;★★★★★☆☆☆☆☆&quot;.substring(5 - rating, 10 - rating); 
 };
 </code></pre>
 ]]></content>

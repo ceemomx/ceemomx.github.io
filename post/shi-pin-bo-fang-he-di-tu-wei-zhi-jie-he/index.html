@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>css3 控制滚动条样式 | z2z</title>
+<title>视频播放和地图位置结合 | z2z</title>
 <meta name="description" content="zero to zero" />
 <link rel="shortcut icon" href="http://ceemomx.github.io/favicon.ico?v=1575342145954">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -73,65 +73,39 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              css3 控制滚动条样式
+              视频播放和地图位置结合
             </h2>
             <div class="post-info">
               <span>
-                2017-09-06
+                2019-10-15
               </span>
               <span>
                 1 min read
               </span>
               
-                <a href="http://ceemomx.github.io/tag/QtF02uodG" class="post-tag">
-                  # html
-                </a>
-              
-                <a href="http://ceemomx.github.io/tag/wAxSoGjIV" class="post-tag">
-                  # css
+                <a href="http://ceemomx.github.io/tag/byg5R18P9" class="post-tag">
+                  # javascript
                 </a>
               
             </div>
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h2 id="用css控制滚动条样式">用css控制滚动条样式</h2>
-<pre><code class="language-html">&lt;style&gt;
-    .wrapper {
-        margin-right: -10px;
-        overflow-y: scroll;
-    }
-    
-    ::-webkit-scrollbar {
-        background: rgba(255, 255, 255, 0);
-        width: 10px;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.7);
-        border-radius: 5px;
-    }
-    
-    ::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.3);
-    }
-&lt;/style&gt;
-
-&lt;div class=&quot;wrapper&quot;&gt;
-    
-&lt;/div&gt;
-</code></pre>
+                <blockquote>
+<p>当视频播放的时候，需要在地图上显示对应的位置。视频暂停，地图上的图标也应该停在对应的位置。</p>
+</blockquote>
+<p>其实实现起来非常简单，有播放进度，与对应的坐标相结合起来。</p>
+<p>已知条件：<br>
+坐标路径a</p>
+<p>播放时长b</p>
+<p>当前时间c</p>
+<p>结果：<br>
+当前位置 = a[Math.floor((a.length * c) / b)]<br>
+无论是暂停，快进，回退。都可以求出当前在地图位置的坐标。</p>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E7%94%A8css%E6%8E%A7%E5%88%B6%E6%BB%9A%E5%8A%A8%E6%9D%A1%E6%A0%B7%E5%BC%8F">用css控制滚动条样式</a></li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
@@ -140,9 +114,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="http://ceemomx.github.io/post/jian-dan-jia-mi-suan-fa">
+            <a href="http://ceemomx.github.io/post/vue-zi-ding-yi-cha-jian-zu-jian">
               <h3 class="post-title">
-                简单加密算法
+                Vue自定义插件组件
               </h3>
             </a>
           </div>

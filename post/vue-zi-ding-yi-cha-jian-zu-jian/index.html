@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>css3 控制滚动条样式 | z2z</title>
+<title>Vue自定义插件组件 | z2z</title>
 <meta name="description" content="zero to zero" />
 <link rel="shortcut icon" href="http://ceemomx.github.io/favicon.ico?v=1575342145954">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -73,53 +73,107 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              css3 控制滚动条样式
+              Vue自定义插件组件
             </h2>
             <div class="post-info">
               <span>
-                2017-09-06
+                2019-10-10
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
-                <a href="http://ceemomx.github.io/tag/QtF02uodG" class="post-tag">
-                  # html
+                <a href="http://ceemomx.github.io/tag/feH5SSAS4" class="post-tag">
+                  # vue
                 </a>
               
-                <a href="http://ceemomx.github.io/tag/wAxSoGjIV" class="post-tag">
-                  # css
+                <a href="http://ceemomx.github.io/tag/byg5R18P9" class="post-tag">
+                  # javascript
                 </a>
               
             </div>
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h2 id="用css控制滚动条样式">用css控制滚动条样式</h2>
-<pre><code class="language-html">&lt;style&gt;
-    .wrapper {
-        margin-right: -10px;
-        overflow-y: scroll;
+                <blockquote>
+<p>有些时候，像警告框一类的的组件并不需要在每个html中写一遍，只需要在js里直接调用就可以了。</p>
+</blockquote>
+<p>原理就是在js在调用的时候动态的加载一个vue component</p>
+<h2 id="目录">目录</h2>
+<pre><code>component/
+    ├ vue-alert
+        ├ alert.vue
+        ├ index.js
+</code></pre>
+<h2 id="创建组件">创建组件</h2>
+<p>其实是一个普通的vue component 具体的样式逻辑可以自己定义</p>
+<p><code>alert.vue</code></p>
+<pre><code class="language-html">&lt;template&gt;
+    &lt;div v-show=&quot;visible&quot;&gt;
+        &lt;h2&gt;{{message}}&lt;/h2&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<pre><code class="language-javascript">export default {
+    props: {
+        message: String
+    },
+    data() {
+        return {
+            visible: false
+        }
+    },
+    methods: {
+        show() {
+            this.visible = true
+        },
+        close() {
+            this.visible = false
+            this.$parent.remove() // 这个地方很重要
+        }
     }
-    
-    ::-webkit-scrollbar {
-        background: rgba(255, 255, 255, 0);
-        width: 10px;
+}
+</code></pre>
+<h2 id="创建一个插件入口文件">创建一个插件入口文件</h2>
+<p><code>index.js</code></p>
+<pre><code class="language-javascript">import alertComponent from 'alert.vue'
+export default {
+    install(Vue) {
+        Vue.prototype.$alert = (opts = {message: '警告'}) =&gt; {
+            let alertBox = new Vue({
+                render(h) {
+                    return h(alertComponent, {props: opts})
+                },
+                methods: {
+                    remove() {
+                        setTimeout(() =&gt; { // 使用timeout可以给组件内的动画预留一些时间
+                            this.destroy()
+                        }, 300)
+                    },
+                    destory() {
+                        this.$destroy() //销毁实例
+                        document.body.removeChild(this.$el) // 移除html
+                    }
+                }
+            })
+            let component = alertBox.$mount() //手动执行声明周期
+            document.body.appendChild(component.$el) // 挂载html
+            let alertInstance = alertBox.$children[0]
+            alertInstance.show() // 这个方法是在alert.vue组件内定义的
+        }
     }
-    
-    ::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.7);
-        border-radius: 5px;
-    }
-    
-    ::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.3);
-    }
-&lt;/style&gt;
+}
+</code></pre>
+<h2 id="使用">使用</h2>
+<p>首先在main.js里import插件 并且加载</p>
+<pre><code class="language-javascript">import vueAlert from '@/components/vue-alert'
 
-&lt;div class=&quot;wrapper&quot;&gt;
-    
-&lt;/div&gt;
+Vue.use(vueAlert)
+</code></pre>
+<p>使用的时候</p>
+<pre><code class="language-javascript">    this.$alert({
+        message: '我是消息提示'
+        })
 </code></pre>
 
               </div>
@@ -127,7 +181,10 @@
                 <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#%E7%94%A8css%E6%8E%A7%E5%88%B6%E6%BB%9A%E5%8A%A8%E6%9D%A1%E6%A0%B7%E5%BC%8F">用css控制滚动条样式</a></li>
+<li><a href="#%E7%9B%AE%E5%BD%95">目录</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%BB%84%E4%BB%B6">创建组件</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%8F%92%E4%BB%B6%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6">创建一个插件入口文件</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8">使用</a></li>
 </ul>
 </li>
 </ul>
@@ -140,9 +197,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="http://ceemomx.github.io/post/jian-dan-jia-mi-suan-fa">
+            <a href="http://ceemomx.github.io/post/electron-kai-fa-zhuo-mian-ruan-jian-zi-ding-yi-ku">
               <h3 class="post-title">
-                简单加密算法
+                electron开发桌面软件自定义库
               </h3>
             </a>
           </div>

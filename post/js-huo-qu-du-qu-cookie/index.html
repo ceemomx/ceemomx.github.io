@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>css3 控制滚动条样式 | z2z</title>
+<title>JS获取读取cookie | z2z</title>
 <meta name="description" content="zero to zero" />
 <link rel="shortcut icon" href="http://ceemomx.github.io/favicon.ico?v=1575342145954">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -73,65 +73,41 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              css3 控制滚动条样式
+              JS获取读取cookie
             </h2>
             <div class="post-info">
               <span>
-                2017-09-06
+                2014-06-12
               </span>
               <span>
                 1 min read
               </span>
               
-                <a href="http://ceemomx.github.io/tag/QtF02uodG" class="post-tag">
-                  # html
-                </a>
-              
-                <a href="http://ceemomx.github.io/tag/wAxSoGjIV" class="post-tag">
-                  # css
+                <a href="http://ceemomx.github.io/tag/byg5R18P9" class="post-tag">
+                  # javascript
                 </a>
               
             </div>
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h2 id="用css控制滚动条样式">用css控制滚动条样式</h2>
-<pre><code class="language-html">&lt;style&gt;
-    .wrapper {
-        margin-right: -10px;
-        overflow-y: scroll;
+                <pre><code class="language-javascript">function getCookie(c_name) {
+    if (document.cookie.length &gt; 0) {
+        var c_start = document.cookie.indexOf(c_name + &quot;=&quot;)
+        if (c_start != -1) {
+            c_start = c_start + c_name.length + 1
+            var c_end = document.cookie.indexOf(&quot;;&quot;, c_start)
+            if (c_end == -1) c_end = document.cookie.length
+            return unescape(document.cookie.substring(c_start, c_end))
+        }
     }
-    
-    ::-webkit-scrollbar {
-        background: rgba(255, 255, 255, 0);
-        width: 10px;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.7);
-        border-radius: 5px;
-    }
-    
-    ::-webkit-scrollbar-track {
-        background: rgba(255, 255, 255, 0.3);
-    }
-&lt;/style&gt;
-
-&lt;div class=&quot;wrapper&quot;&gt;
-    
-&lt;/div&gt;
+    return &quot;&quot;
+}
 </code></pre>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E7%94%A8css%E6%8E%A7%E5%88%B6%E6%BB%9A%E5%8A%A8%E6%9D%A1%E6%A0%B7%E5%BC%8F">用css控制滚动条样式</a></li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
@@ -140,9 +116,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="http://ceemomx.github.io/post/jian-dan-jia-mi-suan-fa">
+            <a href="http://ceemomx.github.io/post/huo-qu-url-zhong-de-can-shu">
               <h3 class="post-title">
-                简单加密算法
+                获取URL中的参数
               </h3>
             </a>
           </div>
