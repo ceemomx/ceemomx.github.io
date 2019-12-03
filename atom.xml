@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://ceemomx.github.io</id>
     <title>z2z</title>
-    <updated>2019-12-03T03:02:33.420Z</updated>
+    <updated>2019-12-03T03:05:50.225Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://ceemomx.github.io"/>
     <link rel="self" href="http://ceemomx.github.io/atom.xml"/>
@@ -38,7 +38,7 @@
         <content type="html"><![CDATA[<blockquote>
 <p>有些时候，像警告框一类的的组件并不需要在每个html中写一遍，只需要在js里直接调用就可以了。</p>
 </blockquote>
-<p>原理就是在js在调用的时候动态的加载一个vue component</p>
+<p>原理就是js在调用的时候动态的加载一个vue component</p>
 <h2 id="目录">目录</h2>
 <pre><code>component/
     ├ vue-alert
@@ -377,7 +377,7 @@ npm install hexo-deployer-git --save
 <p>把你电脑里的ssh-key复制进去</p>
 <p>记得允许写入权限</p>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-4158764"><label class="task-list-item-label" for="task-item-4158764"> Allow write access</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-9017406"><label class="task-list-item-label" for="task-item-9017406"> Allow write access</label></li>
 </ul>
 <p>回到你创建好的的博客目录<br>
 在博客目录下找到_config.yml并打开</p>
