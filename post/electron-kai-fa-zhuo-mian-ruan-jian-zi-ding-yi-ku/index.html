@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>打分 | z2z</title>
+<title>electron开发桌面软件自定义库 | z2z</title>
 <meta name="description" content="zero to zero" />
 <link rel="shortcut icon" href="http://ceemomx.github.io/favicon.ico?v=1575340256347">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -73,14 +73,14 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              打分
+              electron开发桌面软件自定义库
             </h2>
             <div class="post-info">
               <span>
-                2013-07-15
+                2019-09-30
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
                 <a href="http://ceemomx.github.io/tag/byg5R18P9" class="post-tag">
@@ -91,10 +91,40 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <pre><code class="language-javascript">var get_rating_string = function(rating) { 
-return &quot;★★★★★☆☆☆☆☆&quot;.substring(5 - rating, 10 - rating); 
-};
+                <p>之前开发了视频转码压缩，并且上传服务器的桌面软件。</p>
+<p>使用的是<a href="https://simulatedgreg.gitbooks.io/electron-vue/cn/">vue-electron</a>。</p>
+<p>因为要用到ffmpeg，所以要将这个库放到项目中去打包。</p>
+<p>如果只是在开发模式下，放到项目中都可以读到这个路径。但是打包之后会找不到对应的路径。因为在开发环境下和生产环境下的目录结构是有些不一样的。并且vue-electron的脚手架打包是不会打包其他的文件目录。</p>
+<p>于是自己动手改造了一下。</p>
+<p>首先在项目根目录中创建<code>libary</code>目录，将ffmpeg文件夹放进去。</p>
+<p>先找到<code>.electron-vue/build.js</code><br>
+修改 function bundleApp()</p>
+<pre><code class="language-javascript">function bundleApp() {
+  buildConfig.mode = 'production'
+  packager(buildConfig, (err, appPaths) =&gt; {
+    if (err) {
+      console.log(`\n${errorLog}${chalk.yellow('`electron-packager`')} says...\n`)
+      console.log(err + '\n')
+    } else {
+      if (appPaths) {
+        appPaths.forEach(p =&gt; {
+          child_process.spawn('cp', ['-r', path.join(__dirname, '../libary/'), p]) 
+          // 在打包的时候将libary目录也拷贝进去
+        })
+      }
+      console.log(`\n${doneLog}\n`)
+    }
+  })
+}
 </code></pre>
+<p>在electron主程序入口文件中 将环境变量引入进去</p>
+<pre><code class="language-javascript">const path = require('path')
+const ffmpegPath = process.env.NODE_ENV === 'development' ? path.resolve('./libary/ffmpeg/bin') : path.join(app.getAppPath(), '../../', '/libary/ffmpeg/bin')
+
+process.env.FFMPEG_PATH = path.join(ffmpegPath, '/ffmpeg.exe')
+process.env.FFPROBE_PATH = path.join(ffmpegPath, '/ffprobe.exe')
+</code></pre>
+<p>这样在生产环境中也能将ffmepg加载到环境变量中了</p>
 
               </div>
               <div class="toc-container">
@@ -104,6 +134,15 @@ return &quot;★★★★★☆☆☆☆☆&quot;.substring(5 - rating, 10 - rat
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="http://ceemomx.github.io/post/css3-kong-zhi-gun-dong-tiao-yang-shi">
+              <h3 class="post-title">
+                css3 控制滚动条样式
+              </h3>
+            </a>
+          </div>
         
 
         

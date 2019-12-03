@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>打分 | z2z</title>
+<title>获取URL中的参数 | z2z</title>
 <meta name="description" content="zero to zero" />
 <link rel="shortcut icon" href="http://ceemomx.github.io/favicon.ico?v=1575340256347">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -73,11 +73,11 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              打分
+              获取URL中的参数
             </h2>
             <div class="post-info">
               <span>
-                2013-07-15
+                2014-05-10
               </span>
               <span>
                 1 min read
@@ -91,9 +91,20 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <pre><code class="language-javascript">var get_rating_string = function(rating) { 
-return &quot;★★★★★☆☆☆☆☆&quot;.substring(5 - rating, 10 - rating); 
-};
+                <pre><code class="language-javascript">var GET = function () {
+    var e = location.href.split(&quot;?&quot;)[1] || &quot;&quot;, e = e.split(&quot;&amp;&quot;), t = 0, n = e.length, r = {};
+    for (; t &lt; n; t++)e[t] = e[t].split(&quot;=&quot;), r[e[t][0]] = decodeURIComponent(e[t][1]);
+    return r
+}();
+</code></pre>
+<p>使用的时候</p>
+<pre><code class="language-javascript">// http://www.a.com/?name=mengxi&amp;age=18
+
+GET.name
+// 'mengxi'
+
+GET.age
+// '18'
 </code></pre>
 
               </div>
@@ -104,6 +115,15 @@ return &quot;★★★★★☆☆☆☆☆&quot;.substring(5 - rating, 10 - rat
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="http://ceemomx.github.io/post/da-fen">
+              <h3 class="post-title">
+                打分
+              </h3>
+            </a>
+          </div>
         
 
         

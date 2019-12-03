@@ -1,15 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://ceemomx.github.io</id>
-    <title>Gridea</title>
-    <updated>2019-12-03T02:26:24.864Z</updated>
+    <title>z2z</title>
+    <updated>2019-12-03T02:30:59.592Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://ceemomx.github.io"/>
     <link rel="self" href="http://ceemomx.github.io/atom.xml"/>
     <subtitle>zero to zero</subtitle>
     <logo>http://ceemomx.github.io/images/avatar.png</logo>
     <icon>http://ceemomx.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2019, Gridea</rights>
+    <rights>All rights reserved 2019, z2z</rights>
+    <entry>
+        <title type="html"><![CDATA[electron开发桌面软件自定义库]]></title>
+        <id>http://ceemomx.github.io/post/electron-kai-fa-zhuo-mian-ruan-jian-zi-ding-yi-ku</id>
+        <link href="http://ceemomx.github.io/post/electron-kai-fa-zhuo-mian-ruan-jian-zi-ding-yi-ku">
+        </link>
+        <updated>2019-09-30T02:26:43.000Z</updated>
+        <content type="html"><![CDATA[<p>之前开发了视频转码压缩，并且上传服务器的桌面软件。</p>
+<p>使用的是<a href="https://simulatedgreg.gitbooks.io/electron-vue/cn/">vue-electron</a>。</p>
+<p>因为要用到ffmpeg，所以要将这个库放到项目中去打包。</p>
+<p>如果只是在开发模式下，放到项目中都可以读到这个路径。但是打包之后会找不到对应的路径。因为在开发环境下和生产环境下的目录结构是有些不一样的。并且vue-electron的脚手架打包是不会打包其他的文件目录。</p>
+<p>于是自己动手改造了一下。</p>
+<p>首先在项目根目录中创建<code>libary</code>目录，将ffmpeg文件夹放进去。</p>
+<p>先找到<code>.electron-vue/build.js</code><br>
+修改 function bundleApp()</p>
+<pre><code class="language-javascript">function bundleApp() {
+  buildConfig.mode = 'production'
+  packager(buildConfig, (err, appPaths) =&gt; {
+    if (err) {
+      console.log(`\n${errorLog}${chalk.yellow('`electron-packager`')} says...\n`)
+      console.log(err + '\n')
+    } else {
+      if (appPaths) {
+        appPaths.forEach(p =&gt; {
+          child_process.spawn('cp', ['-r', path.join(__dirname, '../libary/'), p]) 
+          // 在打包的时候将libary目录也拷贝进去
+        })
+      }
+      console.log(`\n${doneLog}\n`)
+    }
+  })
+}
+</code></pre>
+<p>在electron主程序入口文件中 将环境变量引入进去</p>
+<pre><code class="language-javascript">const path = require('path')
+const ffmpegPath = process.env.NODE_ENV === 'development' ? path.resolve('./libary/ffmpeg/bin') : path.join(app.getAppPath(), '../../', '/libary/ffmpeg/bin')
+
+process.env.FFMPEG_PATH = path.join(ffmpegPath, '/ffmpeg.exe')
+process.env.FFPROBE_PATH = path.join(ffmpegPath, '/ffprobe.exe')
+</code></pre>
+<p>这样在生产环境中也能将ffmepg加载到环境变量中了</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[css3 控制滚动条样式]]></title>
         <id>http://ceemomx.github.io/post/css3-kong-zhi-gun-dong-tiao-yang-shi</id>
@@ -41,6 +83,29 @@
 &lt;div class=&quot;wrapper&quot;&gt;
     
 &lt;/div&gt;
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[获取URL中的参数]]></title>
+        <id>http://ceemomx.github.io/post/huo-qu-url-zhong-de-can-shu</id>
+        <link href="http://ceemomx.github.io/post/huo-qu-url-zhong-de-can-shu">
+        </link>
+        <updated>2014-05-10T02:29:30.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-javascript">var GET = function () {
+    var e = location.href.split(&quot;?&quot;)[1] || &quot;&quot;, e = e.split(&quot;&amp;&quot;), t = 0, n = e.length, r = {};
+    for (; t &lt; n; t++)e[t] = e[t].split(&quot;=&quot;), r[e[t][0]] = decodeURIComponent(e[t][1]);
+    return r
+}();
+</code></pre>
+<p>使用的时候</p>
+<pre><code class="language-javascript">// http://www.a.com/?name=mengxi&amp;age=18
+
+GET.name
+// 'mengxi'
+
+GET.age
+// '18'
 </code></pre>
 ]]></content>
     </entry>
