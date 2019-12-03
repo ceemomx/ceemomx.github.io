@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>打分 | z2z</title>
+<title>简单加密算法 | z2z</title>
 <meta name="description" content="zero to zero" />
 <link rel="shortcut icon" href="http://ceemomx.github.io/favicon.ico?v=1575340334702">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -73,11 +73,11 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              打分
+              简单加密算法
             </h2>
             <div class="post-info">
               <span>
-                2013-07-15
+                2014-07-12
               </span>
               <span>
                 1 min read
@@ -91,8 +91,19 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <pre><code class="language-javascript">var get_rating_string = function(rating) { 
-return &quot;★★★★★☆☆☆☆☆&quot;.substring(5 - rating, 10 - rating); 
+                <pre><code class="language-javascript">var tools = {};
+var salt = 'ac90f';
+
+tools.generateHex = function(id){
+    var hex = (id.toString(16)) + salt;
+    hex = parseInt(hex,16);
+    return hex.toString(32);
+};
+
+tools.decodeHex = function(hex){
+    hex = parseInt(hex,32);
+    hex = hex.toString(16);
+   return hex.slice(0,hex.length - salt.length);
 };
 </code></pre>
 
@@ -104,6 +115,15 @@ return &quot;★★★★★☆☆☆☆☆&quot;.substring(5 - rating, 10 - rat
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="http://ceemomx.github.io/post/huo-qu-url-zhong-de-can-shu">
+              <h3 class="post-title">
+                获取URL中的参数
+              </h3>
+            </a>
+          </div>
         
 
         

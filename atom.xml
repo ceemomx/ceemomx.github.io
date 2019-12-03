@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://ceemomx.github.io</id>
     <title>z2z</title>
-    <updated>2019-12-03T02:30:59.592Z</updated>
+    <updated>2019-12-03T02:32:22.154Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://ceemomx.github.io"/>
     <link rel="self" href="http://ceemomx.github.io/atom.xml"/>
@@ -83,6 +83,29 @@ process.env.FFPROBE_PATH = path.join(ffmpegPath, '/ffprobe.exe')
 &lt;div class=&quot;wrapper&quot;&gt;
     
 &lt;/div&gt;
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[简单加密算法]]></title>
+        <id>http://ceemomx.github.io/post/jian-dan-jia-mi-suan-fa</id>
+        <link href="http://ceemomx.github.io/post/jian-dan-jia-mi-suan-fa">
+        </link>
+        <updated>2014-07-12T02:31:10.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-javascript">var tools = {};
+var salt = 'ac90f';
+
+tools.generateHex = function(id){
+    var hex = (id.toString(16)) + salt;
+    hex = parseInt(hex,16);
+    return hex.toString(32);
+};
+
+tools.decodeHex = function(hex){
+    hex = parseInt(hex,32);
+    hex = hex.toString(16);
+   return hex.slice(0,hex.length - salt.length);
+};
 </code></pre>
 ]]></content>
     </entry>
