@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://ceemomx.github.io</id>
     <title>z2z</title>
-    <updated>2020-01-10T02:11:38.327Z</updated>
+    <updated>2020-01-10T02:14:16.955Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://ceemomx.github.io"/>
     <link rel="self" href="http://ceemomx.github.io/atom.xml"/>
@@ -26,6 +26,59 @@
         arr[0],
         ...quickSort(arr.slice(1).filter(item =&gt; item &gt;= arr[0]))
     ];
+}
+
+function quickSortB(arr) {
+    let left = 0,
+        right = arr.length - 1;
+    //console.time('QuickSort');
+    main(arr, left, right);
+    //console.timeEnd('QuickSort');
+    return arr;
+    function main(arr, left, right) {
+        // 递归结束的条件，直到数组只包含一个元素。
+        if(arr.length === 1) {
+            // 由于是直接修改arr，所以不用返回值。
+            return;
+        }
+        // 获取left指针，准备下一轮分解。
+        let index = partition(arr, left, right);
+        if(left &lt; index - 1) {
+            // 继续分解左边数组。
+            main(arr, left, index - 1);
+        }
+        if(index &lt; right) {
+            // 分解右边数组。
+            main(arr, index, right);
+        }
+    }
+    // 数组分解函数。
+    function partition(arr, left, right) {
+        // 选取中间项为参考点。
+        let pivot = arr[Math.floor((left + right) / 2)];
+        // 循环直到left &gt; right。
+        while(left &lt;= right) {
+            // 持续右移左指针直到其值不小于pivot。
+            while(arr[left] &lt; pivot) {
+                left++;
+            }
+            // 持续左移右指针直到其值不大于pivot。
+            while(arr[right] &gt; pivot) {
+                right--;
+            }
+            // 此时左指针的值不小于pivot，右指针的值不大于pivot。
+            // 如果left仍然不大于right。
+            if(left &lt;= right) {
+                // 交换两者的值，使得不大于pivot的值在其左侧，不小于pivot的值在其右侧。
+                [arr[left], arr[right]] = [arr[right], arr[left]];
+                // 左指针右移，右指针左移准备开始下一轮，防止arr[left]和arr[right]都等于pivot然后导致死循环。
+                left++;
+                right--;
+            }
+        }
+        // 返回左指针作为下一轮分解的依据。
+        return left;
+    }
 }
 </code></pre>
 ]]></content>
@@ -397,7 +450,7 @@ npm install hexo-deployer-git --save
 <p>把你电脑里的ssh-key复制进去</p>
 <p>记得允许写入权限</p>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-5060459"><label class="task-list-item-label" for="task-item-5060459"> Allow write access</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-1053742"><label class="task-list-item-label" for="task-item-1053742"> Allow write access</label></li>
 </ul>
 <p>回到你创建好的的博客目录<br>
 在博客目录下找到_config.yml并打开</p>

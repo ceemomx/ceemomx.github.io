@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>快速排序 | z2z</title>
 <meta name="description" content="zero to zero" />
-<link rel="shortcut icon" href="http://ceemomx.github.io/favicon.ico?v=1578622293193">
+<link rel="shortcut icon" href="http://ceemomx.github.io/favicon.ico?v=1578622454629">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="http://ceemomx.github.io/styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="http://ceemomx.github.io">
-  <img class="avatar" src="http://ceemomx.github.io/images/avatar.png?v=1578622293193" alt="">
+  <img class="avatar" src="http://ceemomx.github.io/images/avatar.png?v=1578622454629" alt="">
   </a>
   <h1 class="site-title">
     z2z
@@ -86,7 +86,7 @@
                 2020-01-10
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
             </div>
@@ -103,6 +103,59 @@
         arr[0],
         ...quickSort(arr.slice(1).filter(item =&gt; item &gt;= arr[0]))
     ];
+}
+
+function quickSortB(arr) {
+    let left = 0,
+        right = arr.length - 1;
+    //console.time('QuickSort');
+    main(arr, left, right);
+    //console.timeEnd('QuickSort');
+    return arr;
+    function main(arr, left, right) {
+        // 递归结束的条件，直到数组只包含一个元素。
+        if(arr.length === 1) {
+            // 由于是直接修改arr，所以不用返回值。
+            return;
+        }
+        // 获取left指针，准备下一轮分解。
+        let index = partition(arr, left, right);
+        if(left &lt; index - 1) {
+            // 继续分解左边数组。
+            main(arr, left, index - 1);
+        }
+        if(index &lt; right) {
+            // 分解右边数组。
+            main(arr, index, right);
+        }
+    }
+    // 数组分解函数。
+    function partition(arr, left, right) {
+        // 选取中间项为参考点。
+        let pivot = arr[Math.floor((left + right) / 2)];
+        // 循环直到left &gt; right。
+        while(left &lt;= right) {
+            // 持续右移左指针直到其值不小于pivot。
+            while(arr[left] &lt; pivot) {
+                left++;
+            }
+            // 持续左移右指针直到其值不大于pivot。
+            while(arr[right] &gt; pivot) {
+                right--;
+            }
+            // 此时左指针的值不小于pivot，右指针的值不大于pivot。
+            // 如果left仍然不大于right。
+            if(left &lt;= right) {
+                // 交换两者的值，使得不大于pivot的值在其左侧，不小于pivot的值在其右侧。
+                [arr[left], arr[right]] = [arr[right], arr[left]];
+                // 左指针右移，右指针左移准备开始下一轮，防止arr[left]和arr[right]都等于pivot然后导致死循环。
+                left++;
+                right--;
+            }
+        }
+        // 返回左指针作为下一轮分解的依据。
+        return left;
+    }
 }
 </code></pre>
 
