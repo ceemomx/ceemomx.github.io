@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>electron开发桌面软件自定义库 | z2z</title>
+<title>快速排序 | z2z</title>
 <meta name="description" content="zero to zero" />
 <link rel="shortcut icon" href="http://ceemomx.github.io/favicon.ico?v=1578622293193">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -79,58 +79,32 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              electron开发桌面软件自定义库
+              快速排序
             </h2>
             <div class="post-info">
               <span>
-                2019-09-30
+                2020-01-10
               </span>
               <span>
-                2 min read
+                1 min read
               </span>
-              
-                <a href="http://ceemomx.github.io/tag/byg5R18P9" class="post-tag">
-                  # javascript
-                </a>
               
             </div>
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>之前开发了视频转码压缩，并且上传服务器的桌面软件。</p>
-<p>使用的是<a href="https://simulatedgreg.gitbooks.io/electron-vue/cn/">vue-electron</a>。</p>
-<p>因为要用到ffmpeg，所以要将这个库放到项目中去打包。</p>
-<p>如果只是在开发模式下，放到项目中都可以读到这个路径。但是打包之后会找不到对应的路径。因为在开发环境下和生产环境下的目录结构是有些不一样的。并且vue-electron的脚手架打包是不会打包其他的文件目录。</p>
-<p>于是自己动手改造了一下。</p>
-<p>首先在项目根目录中创建<code>libary</code>目录，将ffmpeg文件夹放进去。</p>
-<p>先找到<code>.electron-vue/build.js</code><br>
-修改 function bundleApp()</p>
-<pre><code class="language-javascript">function bundleApp() {
-  buildConfig.mode = 'production'
-  packager(buildConfig, (err, appPaths) =&gt; {
-    if (err) {
-      console.log(`\n${errorLog}${chalk.yellow('`electron-packager`')} says...\n`)
-      console.log(err + '\n')
-    } else {
-      if (appPaths) {
-        appPaths.forEach(p =&gt; {
-          child_process.spawn('cp', ['-r', path.join(__dirname, '../libary/'), p]) 
-          // 在打包的时候将libary目录也拷贝进去
-        })
-      }
-      console.log(`\n${doneLog}\n`)
-    }
-  })
+                <pre><code class="language-javascript">function quickSort(arr) {
+    // 当数组长度不大于1时，返回结果，防止callstack溢出。
+
+    if(arr.length &lt;= 1) return arr;
+    return [
+        // 递归调用quickSort，通过Array.prototype.filter方法过滤小于arr[0]的值，注意去掉了arr[0]以防止出现死循环。
+        ...quickSort(arr.slice(1).filter(item =&gt; item &lt; arr[0])),
+        arr[0],
+        ...quickSort(arr.slice(1).filter(item =&gt; item &gt;= arr[0]))
+    ];
 }
 </code></pre>
-<p>在electron主程序入口文件中 将环境变量引入进去</p>
-<pre><code class="language-javascript">const path = require('path')
-const ffmpegPath = process.env.NODE_ENV === 'development' ? path.resolve('./libary/ffmpeg/bin') : path.join(app.getAppPath(), '../../', '/libary/ffmpeg/bin')
-
-process.env.FFMPEG_PATH = path.join(ffmpegPath, '/ffmpeg.exe')
-process.env.FFPROBE_PATH = path.join(ffmpegPath, '/ffprobe.exe')
-</code></pre>
-<p>这样在生产环境中也能将ffmepg加载到环境变量中了</p>
 
               </div>
               <div class="toc-container">
@@ -143,9 +117,9 @@ process.env.FFPROBE_PATH = path.join(ffmpegPath, '/ffprobe.exe')
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="http://ceemomx.github.io/post/zhi-qian-de-bo-ke-xiao-shi-liao">
+            <a href="http://ceemomx.github.io/post/shi-pin-bo-fang-he-di-tu-wei-zhi-jie-he">
               <h3 class="post-title">
-                之前的博客消失了
+                视频播放和地图位置结合
               </h3>
             </a>
           </div>

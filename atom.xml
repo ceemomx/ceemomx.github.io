@@ -2,14 +2,34 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://ceemomx.github.io</id>
     <title>z2z</title>
-    <updated>2019-12-19T05:32:14.614Z</updated>
+    <updated>2020-01-10T02:11:38.327Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://ceemomx.github.io"/>
     <link rel="self" href="http://ceemomx.github.io/atom.xml"/>
     <subtitle>zero to zero</subtitle>
     <logo>http://ceemomx.github.io/images/avatar.png</logo>
     <icon>http://ceemomx.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2019, z2z</rights>
+    <rights>All rights reserved 2020, z2z</rights>
+    <entry>
+        <title type="html"><![CDATA[快速排序]]></title>
+        <id>http://ceemomx.github.io/post/kuai-su-pai-xu</id>
+        <link href="http://ceemomx.github.io/post/kuai-su-pai-xu">
+        </link>
+        <updated>2020-01-10T02:10:35.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-javascript">function quickSort(arr) {
+    // 当数组长度不大于1时，返回结果，防止callstack溢出。
+
+    if(arr.length &lt;= 1) return arr;
+    return [
+        // 递归调用quickSort，通过Array.prototype.filter方法过滤小于arr[0]的值，注意去掉了arr[0]以防止出现死循环。
+        ...quickSort(arr.slice(1).filter(item =&gt; item &lt; arr[0])),
+        arr[0],
+        ...quickSort(arr.slice(1).filter(item =&gt; item &gt;= arr[0]))
+    ];
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[视频播放和地图位置结合]]></title>
         <id>http://ceemomx.github.io/post/shi-pin-bo-fang-he-di-tu-wei-zhi-jie-he</id>
@@ -377,7 +397,7 @@ npm install hexo-deployer-git --save
 <p>把你电脑里的ssh-key复制进去</p>
 <p>记得允许写入权限</p>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-4085654"><label class="task-list-item-label" for="task-item-4085654"> Allow write access</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-5060459"><label class="task-list-item-label" for="task-item-5060459"> Allow write access</label></li>
 </ul>
 <p>回到你创建好的的博客目录<br>
 在博客目录下找到_config.yml并打开</p>
@@ -490,29 +510,6 @@ language: zh-CN
 &lt;div class=&quot;wrapper&quot;&gt;
     
 &lt;/div&gt;
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[简单加密算法]]></title>
-        <id>http://ceemomx.github.io/post/jian-dan-jia-mi-suan-fa</id>
-        <link href="http://ceemomx.github.io/post/jian-dan-jia-mi-suan-fa">
-        </link>
-        <updated>2014-07-12T02:31:10.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-javascript">var tools = {};
-var salt = 'ac90f';
-
-tools.generateHex = function(id){
-    var hex = (id.toString(16)) + salt;
-    hex = parseInt(hex,16);
-    return hex.toString(32);
-};
-
-tools.decodeHex = function(hex){
-    hex = parseInt(hex,32);
-    hex = hex.toString(16);
-   return hex.slice(0,hex.length - salt.length);
-};
 </code></pre>
 ]]></content>
     </entry>
