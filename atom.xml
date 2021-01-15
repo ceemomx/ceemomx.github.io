@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://ceemomx.github.io</id>
     <title>z2z</title>
-    <updated>2021-01-15T05:15:08.164Z</updated>
+    <updated>2021-01-15T05:17:08.286Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://ceemomx.github.io"/>
     <link rel="self" href="http://ceemomx.github.io/atom.xml"/>
@@ -16,19 +16,20 @@
         <link href="http://ceemomx.github.io/post/shu-zu-qu-chong/">
         </link>
         <updated>2021-01-15T01:38:26.000Z</updated>
-        <content type="html"><![CDATA[<p>function uniqArray(arr) {<br>
-if (!Array.isArray(arr)) {<br>
-console.log('type error!')<br>
-return<br>
-}<br>
-var array = []<br>
-for (var i = 0; i &lt; arr.length; i++) {<br>
-if (array.indexOf(arr[i]) === -1) {<br>
-array.push(arr[i])<br>
-}<br>
-}<br>
-return array<br>
-}</p>
+        <content type="html"><![CDATA[<pre><code class="language-javascript">function uniqArray(arr) {
+  if (!Array.isArray(arr)) {
+    console.log('type error!')
+    return
+  }
+  var array = []
+  for (var i = 0; i &lt; arr.length; i++) {
+    if (array.indexOf(arr[i]) === -1) {
+      array.push(arr[i])
+    }
+  }
+  return array
+}
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -471,7 +472,7 @@ npm install hexo-deployer-git --save
 <p>把你电脑里的ssh-key复制进去</p>
 <p>记得允许写入权限</p>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-4138565"><label class="task-list-item-label" for="task-item-4138565"> Allow write access</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-9765786"><label class="task-list-item-label" for="task-item-9765786"> Allow write access</label></li>
 </ul>
 <p>回到你创建好的的博客目录<br>
 在博客目录下找到_config.yml并打开</p>

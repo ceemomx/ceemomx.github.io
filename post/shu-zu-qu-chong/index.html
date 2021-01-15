@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>数组去重 | z2z</title>
 <meta name="description" content="zero to zero" />
-<link rel="shortcut icon" href="http://ceemomx.github.io/favicon.ico?v=1610687704290">
+<link rel="shortcut icon" href="http://ceemomx.github.io/favicon.ico?v=1610687824712">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="http://ceemomx.github.io/styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="http://ceemomx.github.io">
-  <img class="avatar" src="http://ceemomx.github.io/images/avatar.png?v=1610687704290" alt="">
+  <img class="avatar" src="http://ceemomx.github.io/images/avatar.png?v=1610687824712" alt="">
   </a>
   <h1 class="site-title">
     z2z
@@ -99,19 +99,20 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>function uniqArray(arr) {<br>
-if (!Array.isArray(arr)) {<br>
-console.log('type error!')<br>
-return<br>
-}<br>
-var array = []<br>
-for (var i = 0; i &lt; arr.length; i++) {<br>
-if (array.indexOf(arr[i]) === -1) {<br>
-array.push(arr[i])<br>
-}<br>
-}<br>
-return array<br>
-}</p>
+                <pre><code class="language-javascript">function uniqArray(arr) {
+  if (!Array.isArray(arr)) {
+    console.log('type error!')
+    return
+  }
+  var array = []
+  for (var i = 0; i &lt; arr.length; i++) {
+    if (array.indexOf(arr[i]) === -1) {
+      array.push(arr[i])
+    }
+  }
+  return array
+}
+</code></pre>
 
               </div>
               <div class="toc-container">
