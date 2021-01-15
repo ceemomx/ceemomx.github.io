@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://ceemomx.github.io</id>
     <title>z2z</title>
-    <updated>2021-01-15T01:38:50.030Z</updated>
+    <updated>2021-01-15T05:15:08.164Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://ceemomx.github.io"/>
     <link rel="self" href="http://ceemomx.github.io/atom.xml"/>
@@ -12,8 +12,8 @@
     <rights>All rights reserved 2021, z2z</rights>
     <entry>
         <title type="html"><![CDATA[数组去重]]></title>
-        <id>http://ceemomx.github.io/post/shu-zu-qu-chong</id>
-        <link href="http://ceemomx.github.io/post/shu-zu-qu-chong">
+        <id>http://ceemomx.github.io/post/shu-zu-qu-chong/</id>
+        <link href="http://ceemomx.github.io/post/shu-zu-qu-chong/">
         </link>
         <updated>2021-01-15T01:38:26.000Z</updated>
         <content type="html"><![CDATA[<p>function uniqArray(arr) {<br>
@@ -33,8 +33,8 @@ return array<br>
     </entry>
     <entry>
         <title type="html"><![CDATA[快速排序]]></title>
-        <id>http://ceemomx.github.io/post/kuai-su-pai-xu</id>
-        <link href="http://ceemomx.github.io/post/kuai-su-pai-xu">
+        <id>http://ceemomx.github.io/post/kuai-su-pai-xu/</id>
+        <link href="http://ceemomx.github.io/post/kuai-su-pai-xu/">
         </link>
         <updated>2020-01-10T02:10:35.000Z</updated>
         <content type="html"><![CDATA[<pre><code class="language-javascript">function quickSort(arr) {
@@ -106,8 +106,8 @@ function quickSortB(arr) {
     </entry>
     <entry>
         <title type="html"><![CDATA[视频播放和地图位置结合]]></title>
-        <id>http://ceemomx.github.io/post/shi-pin-bo-fang-he-di-tu-wei-zhi-jie-he</id>
-        <link href="http://ceemomx.github.io/post/shi-pin-bo-fang-he-di-tu-wei-zhi-jie-he">
+        <id>http://ceemomx.github.io/post/shi-pin-bo-fang-he-di-tu-wei-zhi-jie-he/</id>
+        <link href="http://ceemomx.github.io/post/shi-pin-bo-fang-he-di-tu-wei-zhi-jie-he/">
         </link>
         <updated>2019-10-15T02:38:02.000Z</updated>
         <content type="html"><![CDATA[<blockquote>
@@ -125,8 +125,8 @@ function quickSortB(arr) {
     </entry>
     <entry>
         <title type="html"><![CDATA[Vue自定义插件组件]]></title>
-        <id>http://ceemomx.github.io/post/vue-zi-ding-yi-cha-jian-zu-jian</id>
-        <link href="http://ceemomx.github.io/post/vue-zi-ding-yi-cha-jian-zu-jian">
+        <id>http://ceemomx.github.io/post/vue-zi-ding-yi-cha-jian-zu-jian/</id>
+        <link href="http://ceemomx.github.io/post/vue-zi-ding-yi-cha-jian-zu-jian/">
         </link>
         <updated>2019-10-10T02:46:05.000Z</updated>
         <content type="html"><![CDATA[<blockquote>
@@ -213,8 +213,8 @@ Vue.use(vueAlert)
     </entry>
     <entry>
         <title type="html"><![CDATA[electron开发桌面软件自定义库]]></title>
-        <id>http://ceemomx.github.io/post/electron-kai-fa-zhuo-mian-ruan-jian-zi-ding-yi-ku</id>
-        <link href="http://ceemomx.github.io/post/electron-kai-fa-zhuo-mian-ruan-jian-zi-ding-yi-ku">
+        <id>http://ceemomx.github.io/post/electron-kai-fa-zhuo-mian-ruan-jian-zi-ding-yi-ku/</id>
+        <link href="http://ceemomx.github.io/post/electron-kai-fa-zhuo-mian-ruan-jian-zi-ding-yi-ku/">
         </link>
         <updated>2019-09-30T02:26:43.000Z</updated>
         <content type="html"><![CDATA[<p>之前开发了视频转码压缩，并且上传服务器的桌面软件。</p>
@@ -255,8 +255,8 @@ process.env.FFPROBE_PATH = path.join(ffmpegPath, '/ffprobe.exe')
     </entry>
     <entry>
         <title type="html"><![CDATA[之前的博客消失了]]></title>
-        <id>http://ceemomx.github.io/post/zhi-qian-de-bo-ke-xiao-shi-liao</id>
-        <link href="http://ceemomx.github.io/post/zhi-qian-de-bo-ke-xiao-shi-liao">
+        <id>http://ceemomx.github.io/post/zhi-qian-de-bo-ke-xiao-shi-liao/</id>
+        <link href="http://ceemomx.github.io/post/zhi-qian-de-bo-ke-xiao-shi-liao/">
         </link>
         <updated>2019-07-15T02:59:49.000Z</updated>
         <content type="html"><![CDATA[<p>换了一个博客客户端</p>
@@ -268,8 +268,8 @@ process.env.FFPROBE_PATH = path.join(ffmpegPath, '/ffprobe.exe')
     </entry>
     <entry>
         <title type="html"><![CDATA[浏览器kv数据库]]></title>
-        <id>http://ceemomx.github.io/post/liu-lan-qi-kv-shu-ju-ku</id>
-        <link href="http://ceemomx.github.io/post/liu-lan-qi-kv-shu-ju-ku">
+        <id>http://ceemomx.github.io/post/liu-lan-qi-kv-shu-ju-ku/</id>
+        <link href="http://ceemomx.github.io/post/liu-lan-qi-kv-shu-ju-ku/">
         </link>
         <updated>2019-01-26T02:33:35.000Z</updated>
         <content type="html"><![CDATA[<h2 id="storagedb">storageDb</h2>
@@ -299,8 +299,8 @@ fooDb.remove(dataId)
     </entry>
     <entry>
         <title type="html"><![CDATA[openlayer2静态wmts服务]]></title>
-        <id>http://ceemomx.github.io/post/openlayer2-jing-tai-wmts-fu-wu</id>
-        <link href="http://ceemomx.github.io/post/openlayer2-jing-tai-wmts-fu-wu">
+        <id>http://ceemomx.github.io/post/openlayer2-jing-tai-wmts-fu-wu/</id>
+        <link href="http://ceemomx.github.io/post/openlayer2-jing-tai-wmts-fu-wu/">
         </link>
         <updated>2018-09-04T02:36:28.000Z</updated>
         <content type="html"><![CDATA[<p>因为项目中需要用到 openlayer2</p>
@@ -335,8 +335,8 @@ map.addLayer(wmts);
     </entry>
     <entry>
         <title type="html"><![CDATA[抓取图片]]></title>
-        <id>http://ceemomx.github.io/post/zhua-qu-tu-pian</id>
-        <link href="http://ceemomx.github.io/post/zhua-qu-tu-pian">
+        <id>http://ceemomx.github.io/post/zhua-qu-tu-pian/</id>
+        <link href="http://ceemomx.github.io/post/zhua-qu-tu-pian/">
         </link>
         <updated>2018-05-16T03:01:14.000Z</updated>
         <content type="html"><![CDATA[<p>本来是想写个爬虫爬一下天地图的地图图块</p>
@@ -420,8 +420,8 @@ async.mapLimit(urls, 20, async function(url) {
     </entry>
     <entry>
         <title type="html"><![CDATA[用hexo搭建博客]]></title>
-        <id>http://ceemomx.github.io/post/yong-hexo-da-jian-bo-ke</id>
-        <link href="http://ceemomx.github.io/post/yong-hexo-da-jian-bo-ke">
+        <id>http://ceemomx.github.io/post/yong-hexo-da-jian-bo-ke/</id>
+        <link href="http://ceemomx.github.io/post/yong-hexo-da-jian-bo-ke/">
         </link>
         <updated>2017-11-29T02:48:53.000Z</updated>
         <content type="html"><![CDATA[<p>看这篇文章需要具备的知识:</p>
@@ -471,7 +471,7 @@ npm install hexo-deployer-git --save
 <p>把你电脑里的ssh-key复制进去</p>
 <p>记得允许写入权限</p>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-8522928"><label class="task-list-item-label" for="task-item-8522928"> Allow write access</label></li>
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-4138565"><label class="task-list-item-label" for="task-item-4138565"> Allow write access</label></li>
 </ul>
 <p>回到你创建好的的博客目录<br>
 在博客目录下找到_config.yml并打开</p>
