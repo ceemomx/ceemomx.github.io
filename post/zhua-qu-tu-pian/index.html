@@ -1,0 +1,278 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>抓取图片 | 退步青年</title>
+<meta name="description" content="反向进步" />
+<link rel="shortcut icon" href="https://ceemomx.github.io/favicon.ico?v=1688350695468">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://ceemomx.github.io/styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://ceemomx.github.io">
+  <img class="avatar" src="https://ceemomx.github.io/images/avatar.png?v=1688350695468" alt="">
+  </a>
+  <h1 class="site-title">
+    退步青年
+  </h1>
+  <p class="site-description">
+    反向进步
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              抓取图片
+            </h2>
+            <div class="post-info">
+              <span>
+                2018-05-16
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://ceemomx.github.io/tag/SP_1kHGHd/" class="post-tag">
+                  # nodejs
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>本来是想写个爬虫爬一下天地图的地图图块</p>
+<p>结果碰到了一些问题，自己总结一下</p>
+<h2 id="1并发问题">1.并发问题</h2>
+<p>其实这个不是新问题，网上也有很多解决方案，只是一开始写了个循环嵌套循环，1秒钟不到发出了90多个请求</p>
+<p>90多个请求有时候会成功 有时候会失败</p>
+<p>所以用了async的</p>
+<p><code>async.mapLimit</code></p>
+<p>解决并发问题</p>
+<h2 id="2下载图块失败">2.下载图块失败</h2>
+<p>本来想把失败的存在数组里全部执行完后，再从失败的数组里再次下载</p>
+<p>之后放弃了这个想法，因为失败的还是有可能失败的</p>
+<p>而且造成失败的原因有很多，不是单纯的让程序反复重试就可以解决问题</p>
+<p>最后还是在生成urls数组的时候访问了一下文件夹里图块有没有成功，如果成功就跳过</p>
+<h2 id="3fs模块的坑">3.fs模块的坑</h2>
+<p>fs.readFile是异步的</p>
+<p>fs.readFileSync是同步的</p>
+<p>在for循环中用同步的才可以 否则循环结束了 因为异步回调的原因 值取不到</p>
+<p>代码如下</p>
+<pre><code class="language-javascript">var request = require('request');
+var fs = require('fs');
+var path = require('path');
+var async = require(&quot;async&quot;);
+
+
+
+var tileMatrix = 10;
+var urls = [];
+var errorUrl = [];
+
+
+for (var tileRow = 140; tileRow &lt; 165; tileRow++) {
+    for (var tileCol = 825; tileCol &lt; 870; tileCol++) {
+        var url = {
+                url:  {
+                    url:'http://t0.tianditu.com/img_c/wmts?SERVICE=WMTS&amp;REQUEST=GetTile&amp;VERSION=1.0.0&amp;LAYER=img&amp;STYLE=default&amp;TILEMATRIXSET=c&amp;TILEMATRIX=' + tileMatrix + '&amp;TILEROW=' + tileRow + '&amp;TILECOL=' + tileCol +'&amp;FORMAT=tiles',
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36'
+                    }
+                }, 
+                m: '' + tileMatrix, 
+                r: '' + tileRow, 
+                c: '' + tileCol
+            }
+        if(!fs.existsSync(path.join(__dirname + '/1/map/default/img', '' + url.m,  url.r , url.c + '.jpg'))){
+            urls.push(url);
+        } else {
+            var file = fs.readFileSync(path.join(__dirname + '/1/map/default/img', '' + url.m,  url.r , url.c + '.jpg'));
+            if (!file.length) {
+                urls.push(url);
+            }
+        }
+        
+    }
+}
+
+
+
+
+async.mapLimit(urls, 20, async function(url) {
+    var res = await new Promise((resolve) =&gt; {
+        console.log('开始下载' + 'm'+ url.m +'r' + url.r + 'c' + url.c + '.jpg')
+        if (!fs.existsSync(path.join(__dirname + '/1/map/default/img', url.m,  url.r)))  fs.mkdirSync(path.join(__dirname + '/1/map/default/img', url.m,  url.r));
+        request(url.url).on('error', function(err) {
+            errorUrl.push(url);
+          }).pipe(fs.createWriteStream(path.join(__dirname + '/1/map/default/img', url.m,  url.r , url.c + '.jpg')).on('close', function(){
+            console.log('下载完成' + 'm'+ url.m +'r' + url.r + 'c' + url.c + '.jpg')
+            resolve(url);
+          }));
+    })
+    return res;
+}, (err, results) =&gt; {
+    console.log('全部完成')
+})
+</code></pre>
+<h2 id="写在最后">写在最后</h2>
+<p>爬虫网上有很多别人写好现成的，自己再造一遍轮子就是想踏踏坑</p>
+<p>有时间再在github上创建个repo 把这个爬虫完善一下</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98">1.并发问题</a></li>
+<li><a href="#2%E4%B8%8B%E8%BD%BD%E5%9B%BE%E5%9D%97%E5%A4%B1%E8%B4%A5">2.下载图块失败</a></li>
+<li><a href="#3fs%E6%A8%A1%E5%9D%97%E7%9A%84%E5%9D%91">3.fs模块的坑</a></li>
+<li><a href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E">写在最后</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://ceemomx.github.io/post/yong-hexo-da-jian-bo-ke/">
+              <h3 class="post-title">
+                用hexo搭建博客
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '8ef80b9eedc9f32da0a3',
+    clientSecret: '28f4d56969263529b4381597e26eeb9f97289cc6',
+    repo: 'ceemomx.github.io',
+    owner: 'ceemomx',
+    admin: ['ceemomx'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+   | 
+  <a class="rss" href="https://ceemomx.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

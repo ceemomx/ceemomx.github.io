@@ -1,0 +1,336 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>用hexo搭建博客 | 退步青年</title>
+<meta name="description" content="反向进步" />
+<link rel="shortcut icon" href="https://ceemomx.github.io/favicon.ico?v=1688350695468">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://ceemomx.github.io/styles/main.css">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://ceemomx.github.io">
+  <img class="avatar" src="https://ceemomx.github.io/images/avatar.png?v=1688350695468" alt="">
+  </a>
+  <h1 class="site-title">
+    退步青年
+  </h1>
+  <p class="site-description">
+    反向进步
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              用hexo搭建博客
+            </h2>
+            <div class="post-info">
+              <span>
+                2017-11-29
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://ceemomx.github.io/tag/SP_1kHGHd/" class="post-tag">
+                  # nodejs
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>看这篇文章需要具备的知识:</p>
+<ul>
+<li>nodejs</li>
+<li>npm</li>
+<li>git</li>
+<li></li>
+</ul>
+<p>如果以上都了解就可以在github上免费搭建一个自己的博客了</p>
+<p>准备工作:</p>
+<ul>
+<li>电脑安装好nodejs</li>
+<li>电脑安装好git</li>
+<li>github帐号</li>
+</ul>
+<hr>
+<h2 id="1-安装hexo">1. 安装hexo</h2>
+<p>在终端中输入</p>
+<pre><code class="language-terminal">npm install -g hexo-cli
+</code></pre>
+<p>等待安装完成后就可以使用hexo了</p>
+<p>在终端中找到自己喜爱的文件夹位置输入</p>
+<pre><code class="language-terminal"> hexo init myBlog
+</code></pre>
+<p>myBlog也可以替换成自己喜欢的名字</p>
+<p>过一会博客文件创建好了，继续输入</p>
+<pre><code class="language-terminal">cd myBlog
+npm install
+npm install hexo-deployer-git --save
+</code></pre>
+<p>等待安装完成就可以进行下一步了</p>
+<hr>
+<h2 id="2配置hexo">2.配置hexo</h2>
+<p>在配置hexo前需要在github创建一个repo</p>
+<p>Repository name输入</p>
+<p><code>你喜欢的名字.github.io</code></p>
+<p>例如</p>
+<p><code>myshiningblog.github.io</code></p>
+<p>创建好后复制下来git地址 例如</p>
+<p><code>git@github.com:yourname/myshiningblog.github.io.git</code></p>
+<p>进入settings找到 Deploy keys</p>
+<p>点击</p>
+<div style="display:inline-block;    border-radius: 0.25em;border: 1px solid rgba(27,31,35,0.2);font-weight: 600;padding: 3px 10px;font-size:12px;line-height: 20px;color: #24292e;
+    background-color: #eff3f6;
+    background-image: linear-gradient(-180deg, #fafbfc 0%, #eff3f6 90%);">Add deploy key</div>
+<p>把你电脑里的ssh-key复制进去</p>
+<p>记得允许写入权限</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" checked="" disabled="" type="checkbox" id="task-item-7880194"><label class="task-list-item-label" for="task-item-7880194"> Allow write access</label></li>
+</ul>
+<p>回到你创建好的的博客目录<br>
+在博客目录下找到_config.yml并打开</p>
+<p>修改网站的基本信息</p>
+<pre><code class="language-yml">title: 网站的标题
+subtitle: 副标题
+description: 描述
+keywords: 关键词
+author: 作者
+language: zh-CN
+</code></pre>
+<p>在最下方找到</p>
+<pre><code class="language-yml">deploy:
+  type: git
+  repo: &lt;repository url&gt;
+  branch: [branch]
+</code></pre>
+<p>修改成</p>
+<pre><code class="language-yml">deploy:
+  type: git
+  repo: 复制下来的git地址
+  branch: master
+</code></pre>
+<p>保存！</p>
+<hr>
+<h2 id="3生成和发布">3.生成和发布</h2>
+<p>在终端输入</p>
+<pre><code class="language-terminal">hexo g -d
+</code></pre>
+<p>等一会就发布成功了</p>
+<p>打开github.io的页面</p>
+<p><code>你喜欢的名字.github.io</code></p>
+<p>就能看到你的博客啦</p>
+<hr>
+<h2 id="4创作编辑文章">4.创作编辑文章</h2>
+<p>有两种方法可以创建编辑文章</p>
+<h4 id="1使用代码编辑器-例如-sublime-vscode-atom">1.使用代码编辑器 例如 sublime vscode atom</h4>
+<p>用终端进入博客目录下 输入</p>
+<pre><code class="language-terminal">hexo new 文章的标题
+</code></pre>
+<p>这时候在博客的目录</p>
+<p><code>/source/_posts/</code></p>
+<p>下就能看到你新创建的文章的标题.md了</p>
+<p>直接就可以在这里写你的文章了</p>
+<h4 id="2使用本地服务后台">2.使用本地服务后台</h4>
+<p>用终端进入博客目录下 输入</p>
+<pre><code class="language-terminal">npm install --save hexo-admin
+</code></pre>
+<p>安装完成后 输入</p>
+<pre><code class="language-terminal">hexo server
+</code></pre>
+<p>出现</p>
+<pre><code class="language-terminal">Hexo is running at http://localhost:4000/
+</code></pre>
+<p>就说明服务启好了<br>
+访问这个地址就能在本地查看博客</p>
+<p>访问<br>
+<code>http://localhost:4000/admin</code></p>
+<p>进入后台就可以对文章进行创建编辑了</p>
+<p>文章写完后记得在终端博客目录下 输入</p>
+<pre><code class="language-terminal">hexo g -d
+</code></pre>
+<p>这样文章就会生成并发布到github上了</p>
+<hr>
+<h2 id="5博客页面修改">5.博客页面修改</h2>
+<p>在博客目录下/themes/里就是主题文件了</p>
+<p>有一个 <strong>landscape</strong> 的默认主题</p>
+<p>如果对自己html css有信心，并且熟悉ejs模板还有stylus</p>
+<p>就可以从默认模板下手修改成自己喜欢的博客样式</p>
+<p>如果自己没有太强的前端知识<br>
+可以访问<br>
+<a href="https://hexo.io/themes/">https://hexo.io/themes/</a></p>
+<p>挑选自己喜欢的模板并按照 主题中的readme操作就可以更换模板了</p>
+<hr>
+<h2 id="6其他">6.其他</h2>
+<p>hexo官网:<br>
+<a href="https://hexo.io/">https://hexo.io/</a></p>
+<p>hexo简中官网:<br>
+<a href="https://hexo.io/zh-cn/">https://hexo.io/zh-cn/</a></p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1-%E5%AE%89%E8%A3%85hexo">1. 安装hexo</a></li>
+<li><a href="#2%E9%85%8D%E7%BD%AEhexo">2.配置hexo</a></li>
+<li><a href="#3%E7%94%9F%E6%88%90%E5%92%8C%E5%8F%91%E5%B8%83">3.生成和发布</a></li>
+<li><a href="#4%E5%88%9B%E4%BD%9C%E7%BC%96%E8%BE%91%E6%96%87%E7%AB%A0">4.创作编辑文章</a><br>
+*
+<ul>
+<li><a href="#1%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%A0%81%E7%BC%96%E8%BE%91%E5%99%A8-%E4%BE%8B%E5%A6%82-sublime-vscode-atom">1.使用代码编辑器 例如 sublime vscode atom</a></li>
+<li><a href="#2%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0%E6%9C%8D%E5%8A%A1%E5%90%8E%E5%8F%B0">2.使用本地服务后台</a></li>
+</ul>
+</li>
+<li><a href="#5%E5%8D%9A%E5%AE%A2%E9%A1%B5%E9%9D%A2%E4%BF%AE%E6%94%B9">5.博客页面修改</a></li>
+<li><a href="#6%E5%85%B6%E4%BB%96">6.其他</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://ceemomx.github.io/post/css3-kong-zhi-gun-dong-tiao-yang-shi/">
+              <h3 class="post-title">
+                css3 控制滚动条样式
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '8ef80b9eedc9f32da0a3',
+    clientSecret: '28f4d56969263529b4381597e26eeb9f97289cc6',
+    repo: 'ceemomx.github.io',
+    owner: 'ceemomx',
+    admin: ['ceemomx'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+   | 
+  <a class="rss" href="https://ceemomx.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+
+  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+  // This should probably be throttled.
+  // Especially because it triggers during smooth scrolling.
+  // https://lodash.com/docs/4.17.10#throttle
+  // You could do like...
+  // window.addEventListener("scroll", () => {
+  //    _.throttle(doThatStuff, 100);
+  // });
+  // Only not doing it here to keep this Pen dependency-free.
+
+  window.addEventListener("scroll", event => {
+    let fromTop = window.scrollY;
+
+    mainNavLinks.forEach((link, index) => {
+      let section = document.getElementById(decodeURI(link.hash).substring(1));
+      let nextSection = null
+      if (mainNavLinks[index + 1]) {
+        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+      }
+      if (section.offsetTop <= fromTop) {
+        if (nextSection) {
+          if (nextSection.offsetTop > fromTop) {
+            link.classList.add("current");
+          } else {
+            link.classList.remove("current");    
+          }
+        } else {
+          link.classList.add("current");
+        }
+      } else {
+        link.classList.remove("current");
+      }
+    });
+  });
+
+</script>
+
+      </div>
+    </div>
+  </body>
+</html>

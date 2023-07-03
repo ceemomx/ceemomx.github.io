@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://ceemomx.github.io</id>
+    <title>退步青年</title>
+    <updated>2023-07-03T02:22:29.224Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://ceemomx.github.io"/>
+    <link rel="self" href="https://ceemomx.github.io/atom.xml"/>
+    <subtitle>反向进步</subtitle>
+    <logo>https://ceemomx.github.io/images/avatar.png</logo>
+    <icon>https://ceemomx.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2023, 退步青年</rights>
+    <entry>
+        <title type="html"><![CDATA[css背景色模糊加买塞克]]></title>
+        <id>https://ceemomx.github.io/post/css-bei-jing-se-mo-hu-jia-mai-sai-ke/</id>
+        <link href="https://ceemomx.github.io/post/css-bei-jing-se-mo-hu-jia-mai-sai-ke/">
+        </link>
+        <updated>2023-05-10T06:44:44.000Z</updated>
+        <content type="html"><![CDATA[<pre><code>background-image: radial-gradient(transparent 1px, #fff 1px);
+background-size: 4px 4px;
+backdrop-filter: saturate(50%) blur(4px);
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[vite vue3动态引入静态文件]]></title>
+        <id>https://ceemomx.github.io/post/vite-vue3-dong-tai-yin-ru-jing-tai-wen-jian/</id>
+        <link href="https://ceemomx.github.io/post/vite-vue3-dong-tai-yin-ru-jing-tai-wen-jian/">
+        </link>
+        <updated>2023-04-23T08:31:40.000Z</updated>
+        <content type="html"><![CDATA[<p>开发即时通讯中发送表情的功能时遇到需要动态引入表情的gif图片，表情的gif文件存在项目的组件目录里不在public下</p>
+<pre><code class="language-javascript">const Faces = ['微笑']
+
+let modules = import.meta.glob('../face/*.gif', { eager: true })
+const faceMap = {}
+for (let i = 0; i &lt; Faces.length; i++) {
+      faceMap[Faces[i]] = modules[`../face/${i}.gif`].default
+}
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[UUID]]></title>
+        <id>https://ceemomx.github.io/post/uuid/</id>
+        <link href="https://ceemomx.github.io/post/uuid/">
+        </link>
+        <updated>2022-10-18T01:37:15.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-javascript"> generateUUID() {
+        return new Array(32)
+        .join('.')
+        .split('.')
+        .map(() =&gt; {
+          return '1234567890abcdefghijklmnopqrstuvwxyz'.split('')[
+            Math.floor(Math.random() * 36)
+          ]
+        })
+        .join('')
+    }
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[jenkins打包与本地打包差异问题]]></title>
+        <id>https://ceemomx.github.io/post/jenkins-da-bao-yu-ben-di-da-bao-chai-yi-wen-ti/</id>
+        <link href="https://ceemomx.github.io/post/jenkins-da-bao-yu-ben-di-da-bao-chai-yi-wen-ti/">
+        </link>
+        <updated>2022-09-28T06:22:42.000Z</updated>
+        <content type="html"><![CDATA[<p>最近碰见了一个奇怪的问题，jenkins打包后更新生产环境发现某些组件在页面上直接消失了。使用本地打的生产环境的包更新上后则正常。</p>
+<p>发生这个问题的其中 一种情况可能是jenkins依赖缓存产生的问题，将jenkins依赖缓存清理后，重新用jenkins打包更新后一切正常。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Vue3 组件ref实例调用内部方法或属性]]></title>
+        <id>https://ceemomx.github.io/post/vue3-zu-jian-ref-shi-li-diao-yong-nei-bu-fang-fa-huo-shu-xing/</id>
+        <link href="https://ceemomx.github.io/post/vue3-zu-jian-ref-shi-li-diao-yong-nei-bu-fang-fa-huo-shu-xing/">
+        </link>
+        <updated>2022-09-21T07:47:31.000Z</updated>
+        <content type="html"><![CDATA[<p>Vue2中访问组件内的方法或属性的时候可以直接通过<code>this.$refs.xxx.{prop}</code> <code>this.$refs.xxx.{method}</code>的方式访问，在Vue3中有一些区别</p>
+<p>子组件</p>
+<pre><code class="language-html">&lt;script setup&gt;
+    const numIndex = ref(0) // 定义一个属性
+    const increaseNumIndex = () =&gt; { // 定义一个方法
+        numIndex.value++
+    }
+
+    defineExpose({ // &lt;script setup&gt;模式需要通过defineExpose向外暴露可访问内容
+        numIndex,
+        increaseNumIndex
+    })
+&lt;/script&gt;
+</code></pre>
+<p>获取组件实例</p>
+<pre><code class="language-html">&lt;template&gt;
+    &lt;custom-component ref=&quot;ccRef&quot; /&gt;
+&lt;/template&gt;
+&lt;script setup&gt;
+    import { ref } from 'vue'
+
+    const ccRef = ref(null) // 获取子组件实例时，定义的属性名称要和组件上ref的名字保持一致
+
+    // 此时可以通过实例.value访问子组件暴露的属性或方法
+    ccRef.value.increaseNumIndex()
+    console.log(ccRef.value.numIndex) 
+&lt;/script&gt;
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Vue3 <script setup>模式定义props]]></title>
+        <id>https://ceemomx.github.io/post/vue3-lessscript-setupgreatermo-shi-ding-yi-props/</id>
+        <link href="https://ceemomx.github.io/post/vue3-lessscript-setupgreatermo-shi-ding-yi-props/">
+        </link>
+        <updated>2022-09-16T08:32:13.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-html">&lt;template&gt;
+    &lt;h1&gt;hello {{msg}}&lt;/h1&gt;
+&lt;/template&gt;
+&lt;script setup&gt;
+    defineProps({
+        msg: {
+            type: String, // 类型
+            default: 'world' // 默认值
+        }
+    })
+&lt;/script&gt;
+</code></pre>
+<p>如果不想定义默认值可以直接指明类型</p>
+<pre><code class="language-javascript">defineProps({
+    msg: String
+})
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ArrayBuffer to String]]></title>
+        <id>https://ceemomx.github.io/post/arraybuffer-to-string/</id>
+        <link href="https://ceemomx.github.io/post/arraybuffer-to-string/">
+        </link>
+        <updated>2022-08-19T08:53:20.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-javascript">      function decodeUtf8(arrayBuffer) {
+        var result = ''
+        var i = 0
+        var c = 0
+        var c1 = 0
+        var c2 = 0
+        var c3 = 0
+
+        var data = new Uint8Array(arrayBuffer)
+
+        // If we have a BOM skip it
+        if (data.length &gt;= 3 &amp;&amp; data[0] === 0xef &amp;&amp; data[1] === 0xbb &amp;&amp; data[2] === 0xbf) {
+          i = 3
+        }
+
+        while (i &lt; data.length) {
+          c = data[i]
+
+          if (c &lt; 128) {
+            result += String.fromCharCode(c)
+            i++
+          } else if (c &gt; 191 &amp;&amp; c &lt; 224) {
+            if (i + 1 &gt;= data.length) {
+              throw 'UTF-8 Decode failed. Two byte character was truncated.'
+            }
+            c2 = data[i + 1]
+            result += String.fromCharCode(((c &amp; 31) &lt;&lt; 6) | (c2 &amp; 63))
+            i += 2
+          } else {
+            if (i + 2 &gt;= data.length) {
+              throw 'UTF-8 Decode failed. Multi byte character was truncated.'
+            }
+            c2 = data[i + 1]
+            c3 = data[i + 2]
+            result += String.fromCharCode(((c &amp; 15) &lt;&lt; 12) | ((c2 &amp; 63) &lt;&lt; 6) | (c3 &amp; 63))
+            i += 3
+          }
+        }
+        return result
+      }
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[下载excel]]></title>
+        <id>https://ceemomx.github.io/post/xia-zai-excel/</id>
+        <link href="https://ceemomx.github.io/post/xia-zai-excel/">
+        </link>
+        <updated>2022-07-28T06:42:21.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-javascript">/**
+ *
+ * @param {Object} sheet 表格数据
+ * @param {String} sheetName 文件名
+ */
+export function downloadExcel(sheet, sheetName) {
+  sheetName = sheetName || 'sheet1'
+  var workbook = {
+    SheetNames: [sheetName],
+    Sheets: {},
+  }
+  workbook.Sheets[sheetName] = sheet
+  // 生成excel的配置项
+  var wopts = {
+    bookType: 'xlsx', // 要生成的文件类型
+    bookSST: false, // 是否生成Shared String Table，官方解释是，如果开启生成速度会下降，但在低版本IOS设备上有更好的兼容性
+    type: 'binary',
+  }
+  var wbout = XLSX.write(workbook, wopts)
+  var blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' })
+  // 字符串转ArrayBuffer
+  function s2ab(s) {
+    var buf = new ArrayBuffer(s.length)
+    var view = new Uint8Array(buf)
+    for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) &amp; 0xff
+    return buf
+  }
+
+  let url = URL.createObjectURL(blob)
+
+  var aLink = document.createElement('a')
+  aLink.href = url
+  aLink.download = (sheetName || '') + '.xlsx' // HTML5新增的属性，指定保存文件名，可以不要后缀，注意，file:///模式下不会生效
+  var event
+  if (window.MouseEvent) event = new MouseEvent('click')
+  else {
+    event = document.createEvent('MouseEvents')
+    event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+  }
+  aLink.dispatchEvent(event)
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[加密解密]]></title>
+        <id>https://ceemomx.github.io/post/jia-mi-jie-mi/</id>
+        <link href="https://ceemomx.github.io/post/jia-mi-jie-mi/">
+        </link>
+        <updated>2022-06-17T02:30:13.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-javascript">function encrypt(str, key) {
+   let enStr = btoa(escape(str))
+   let radius = key.split('').map((s) =&gt; s.charCodeAt() &gt;&gt; 5)
+   let code = []
+   for (let s in enStr) {
+       code.push(String.fromCharCode(enStr[s].charCodeAt() + radius[s % radius.length]))
+   }
+   return code.join('')
+}
+
+
+function decrypt(str, key) {
+   let radius = key.split('').map((s) =&gt; s.charCodeAt() &gt;&gt; 5)
+   let code = []
+   for (let s in str) {
+       code.push(String.fromCharCode(str[s].charCodeAt() - radius[s % radius.length]))
+   }
+   return unescape(atob(code.join('')))
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[颜色]]></title>
+        <id>https://ceemomx.github.io/post/yan-se/</id>
+        <link href="https://ceemomx.github.io/post/yan-se/">
+        </link>
+        <updated>2022-06-06T08:25:14.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-css">黑色: #3b3c41;
+</code></pre>
+]]></content>
+    </entry>
+</feed>
