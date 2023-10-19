@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>steam到buff计算器</title>
+  </head>
+  <body>
+    充值折扣<input id="zk" /> <br />
+    steam购得单价<input id="dj" /><br />
+    steam购买数量<input id="sl" /><br />
+    buff售卖单价<input id="mj" /><br />
+    <button id="js">计算</button>
+    <p id="res"></p>
+  </body>
+</html>
+<script>
+  function ele(id) {
+    return document.getElementById(id)
+  }
+
+  function val(id) {
+    return document.getElementById(id).value
+  }
+
+  ele('js').onclick = function () {
+    let cost = val('dj') * val('sl')
+    let earn = val('sl') * val('mj')
+    let useBj = cost * val('zk')
+    let rate = (earn - useBj) / useBj
+    ele('res').innerHTML = `消耗steam余额￥${cost.toFixed(5)}，<br /> 需要本金￥${useBj.toFixed(5)}，<br /> 获取￥${earn.toFixed(5)}，<br /> 利润￥${(earn - useBj).toFixed(5)}，<br /> 利润率${(
+      rate * 100
+    ).toFixed(5)}%`
+  }
+</script>
