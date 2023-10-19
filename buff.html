@@ -6,12 +6,26 @@
     <title>steam到buff计算器</title>
   </head>
   <body>
-    充值折扣<input id="zk" /> <br />
-    steam购得单价<input id="dj" /><br />
-    steam购买数量<input id="sl" /><br />
-    buff售卖单价<input id="mj" /><br />
-    <button id="js">计算</button>
-    <p id="res"></p>
+    <div>
+      <h3>回报计算</h3>
+      充值折扣<input id="zk" /> <br />
+      steam购得单价<input id="dj" /><br />
+      steam购买数量<input id="sl" /><br />
+      buff售卖单价<input id="mj" /><br />
+      <button id="js">计算</button>
+      <p id="res"></p>
+    </div>
+    <div>
+      <h3>反挂刀计算</h3>
+      buff单价<input id="buffdj" />
+      <br />
+      购买数量<input id="gmsl" />
+      <br />
+      steam求购价<input id="steamqg" />
+      <br />
+      <button id="js2">计算</button>
+      <p id="res2"></p>
+    </div>
   </body>
 </html>
 <script>
@@ -28,8 +42,14 @@
     let earn = val('sl') * val('mj')
     let useBj = cost * val('zk')
     let rate = (earn - useBj) / useBj
-    ele('res').innerHTML = `消耗steam余额￥${cost.toFixed(5)}，<br /> 需要本金￥${useBj.toFixed(5)}，<br /> 获取￥${earn.toFixed(5)}，<br /> 利润￥${(earn - useBj).toFixed(5)}，<br /> 利润率${(
+    ele('res').innerHTML = `消耗steam余额￥${cost.toFixed(5)} <br /> 需要本金￥${useBj.toFixed(5)} <br /> 获取￥${earn.toFixed(5)} <br /> 利润￥${(earn - useBj).toFixed(5)} <br /> 利润率${(
       rate * 100
     ).toFixed(5)}%`
+  }
+  ele('js2').onclick = function () {
+    let zj = val('buffdj') * val('gmsl')
+    let hqje = val('steamqg') * 0.85 * val('gmsl')
+    let zk = zj / hqje
+    ele('res2').innerHTML = `需要本金￥${zj.toFixed(5)} <br /> steam获得余额￥${hqje.toFixed(5)} <br /> 赚取￥${(hqje - zj).toFixed(5)} <br /> 折扣${zk.toFixed(3)} `
   }
 </script>
