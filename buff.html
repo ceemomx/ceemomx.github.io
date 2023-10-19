@@ -13,6 +13,7 @@
       steam购买数量<input id="sl" /><br />
       buff售卖单价<input id="mj" /><br />
       <button id="js">计算</button>
+      <button id="tb1">同步单价到挂刀</button>
       <p id="res"></p>
     </div>
     <div>
@@ -24,6 +25,8 @@
       steam求购价<input id="steamqg" />
       <br />
       <button id="js2">计算</button>
+      <button id="tb2">同步单价到回报</button>
+      <button id="tb3">同步折扣到回报</button>
       <p id="res2"></p>
     </div>
   </body>
@@ -36,6 +39,10 @@
   function val(id) {
     return document.getElementById(id).value
   }
+
+  ele('zk').value = 0.7
+  ele('sl').value = 1
+  ele('gmsl').value = 1
 
   ele('js').onclick = function () {
     let cost = val('dj') * val('sl')
@@ -51,5 +58,24 @@
     let hqje = val('steamqg') * 0.85 * val('gmsl')
     let zk = zj / hqje
     ele('res2').innerHTML = `需要本金￥${zj.toFixed(5)} <br /> steam获得余额￥${hqje.toFixed(5)} <br /> 赚取￥${(hqje - zj).toFixed(5)} <br /> 折扣${zk.toFixed(3)} `
+  }
+
+  ele('tb1').onclick = function () {
+    ele('steamqg').value = val('dj')
+    ele('buffdj').value = val('mj')
+  }
+
+  ele('tb2').onclick = function () {
+    ele('dj').value = val('steamqg')
+    ele('mj').value = val('buffdj')
+  }
+
+  ele('tb3').onclick = function () {
+    let zj = val('buffdj') * val('gmsl')
+    let hqje = val('steamqg') * 0.85 * val('gmsl')
+    let zk = zj / hqje
+    if (zk) {
+      ele('zk').value = zk.toFixed(3)
+    }
   }
 </script>
