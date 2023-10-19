@@ -56,7 +56,7 @@
   ele('js2').onclick = function () {
     let zj = val('buffdj') * val('gmsl')
     let hqje = val('steamqg') * 0.85 * val('gmsl')
-    let zk = zj / hqje
+    let zk = Math.abs(hqje / zj - 2)
     ele('res2').innerHTML = `需要本金￥${zj.toFixed(5)} <br /> steam获得余额￥${hqje.toFixed(5)} <br /> 赚取￥${(hqje - zj).toFixed(5)} <br /> 折扣${zk.toFixed(3)} `
   }
 
