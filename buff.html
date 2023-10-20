@@ -62,7 +62,7 @@
     ).toFixed(5)}%`
   }
   ele("tj2").onclick = function () {
-    let lower = +val("mj") + val("mj") * (1 - val("zk"))
+    let lower = val("mj") / val("zk")
     ele("tj").innerHTML = `推荐steam购得单价低于${lower}`
   }
   ele("js2").onclick = function () {
